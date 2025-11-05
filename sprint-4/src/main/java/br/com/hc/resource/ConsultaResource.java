@@ -21,7 +21,6 @@ public class ConsultaResource {
 
     private Long pacienteId;
     private String pacienteNome;
-    private LocalDateTime dataConsulta;
     private Long medicoId;
     private String especialidade;
 

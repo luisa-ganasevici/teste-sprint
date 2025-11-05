@@ -3,11 +3,11 @@ package br.com.hc.dto.consulta;
 public class AgendarConsultaDto {
     private Long pacienteId;
     private String pacienteNome;
-    private String dataConsulta;  // ← Mudei para String
+    private String dataConsulta;
     private Long medicoId;
     private String especialidade;
 
-    
+
     public Long getPacienteId() { return pacienteId; }
     public void setPacienteId(Long pacienteId) { this.pacienteId = pacienteId; }
 

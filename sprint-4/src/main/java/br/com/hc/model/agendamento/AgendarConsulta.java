@@ -1,7 +1,7 @@
 package br.com.hc.model.agendamento;
 
 public class AgendarConsulta {
-    private Integer id; // Novo campo ID
+    private Integer id;
     private String paciente;
     private String medico;
     private String dataHora;
