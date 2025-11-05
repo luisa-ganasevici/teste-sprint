@@ -7,7 +7,6 @@ public class DetalhesConsultaDto {
     private String dataHora;
     private String motivo;
 
-    // Getters e Setters
     public Integer getId() { return id; }
     public void setId(Integer id) { this.id = id; }
 

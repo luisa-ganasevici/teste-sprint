@@ -10,7 +10,6 @@ import jakarta.ws.rs.core.*;
 import org.modelmapper.ModelMapper;
 import java.net.URI;
 import java.sql.SQLException;
-import java.util.ArrayList;
 import java.util.List;
 import jakarta.validation.Valid;
 import br.com.hc.exception.ErrorResponseDto;
@@ -19,6 +18,12 @@ import br.com.hc.exception.ErrorResponseDto;
 @Produces(MediaType.APPLICATION_JSON)
 @Consumes(MediaType.APPLICATION_JSON)
 public class ConsultaResource {
+
+    private Long pacienteId;
+    private String pacienteNome;
+    private LocalDateTime dataConsulta;
+    private Long medicoId;
+    private String especialidade;
 
     @Inject
     private ConsultaDao consultaDao;

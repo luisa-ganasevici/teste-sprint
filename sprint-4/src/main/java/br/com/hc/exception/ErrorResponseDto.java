@@ -9,7 +9,6 @@ public class ErrorResponseDto {
         this.detalhe = detalhe;
     }
 
-    // Getters e Setters (OBRIGATÓRIOS)
     public String getErro() {
         return erro;
     }

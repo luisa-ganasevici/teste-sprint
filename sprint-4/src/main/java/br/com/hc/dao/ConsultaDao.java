@@ -57,7 +57,7 @@ public class ConsultaDao {
                         rs.getString("motivo")
                 );
             } else {
-                return null; // ou lance uma exceção
+                return null;
             }
 
         } catch (SQLException e) {
@@ -78,7 +78,6 @@ public class ConsultaDao {
 
             stmt.executeUpdate();
 
-            // Recupera o ID gerado
             ResultSet rs = stmt.getGeneratedKeys();
             if (rs.next()) {
                 consulta.setId(rs.getInt(1));
