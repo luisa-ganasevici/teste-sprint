@@ -1,211 +1,100 @@
 package br.com.hc.model.usuario;
 
 public class Paciente {
-    public void inserirPaciente(Paciente paciente) {
-        String sql = "INSERT INTO pacientes (nome, cpf, idade, rg, convenio, id_convenio) VALUES (?, ?, ?, ?, ?, ?)";
+    private String nome;
+    private String cpf;
+    private int idade;
+    private String rg;
+    private boolean convenio;
+    private int idConvenio;
 
-        Connection conn = null;
-        try {
-            conn = ConexaoBanco.obterConexao();
-            PreparedStatement stmt = conn.prepareStatement(sql);
 
-            stmt.setString(1, paciente.getNome());
-            stmt.setString(2, paciente.getCpf());
-            stmt.setInt(3, paciente.getIdade());
-            stmt.setString(4, paciente.getRg());
-            stmt.setBoolean(5, paciente.isConvenio());
-            stmt.setInt(6, paciente.getIdConvenio());
-
-            stmt.executeUpdate();
-            System.out.println("Paciente cadastrado com sucesso!");
-
-        } catch (SQLException e) {
-            throw new HcException("Erro ao inserir paciente: " + e.getMessage(), e);
-        } finally {
-            ConexaoBanco.fecharConexao(conn);
-        }
+    public Paciente() {
     }
 
 
-    public Paciente buscarPorCpf(String cpf) {
-        String sql = "SELECT * FROM pacientes WHERE cpf = ?";
-        Paciente paciente = null;
-
-        Connection conn = null;
-        try {
-            conn = ConexaoBanco.obterConexao();
-            PreparedStatement stmt = conn.prepareStatement(sql);
-            stmt.setString(1, cpf);
-            ResultSet rs = stmt.executeQuery();
-
-            if (rs.next()) {
-                paciente = new Paciente(
-                        rs.getString("nome"),
-                        rs.getString("cpf"),
-                        rs.getInt("idade"),
-                        rs.getString("rg"),
-                        rs.getBoolean("convenio"),
-                        rs.getInt("id_convenio")
-                );
-            }
-
-        } catch (SQLException e) {
-            throw new HcException("Erro ao buscar paciente por CPF: " + e.getMessage(), e);
-        } finally {
-            ConexaoBanco.fecharConexao(conn);
-        }
-
-        return paciente;
+    public Paciente(String nome, String cpf, int idade, String rg, boolean convenio, int idConvenio) {
+        this.nome = nome;
+        this.cpf = cpf;
+        this.idade = idade;
+        this.rg = rg;
+        this.convenio = convenio;
+        this.idConvenio = idConvenio;
     }
 
 
-    public List<Paciente> listarTodos() {
-        String sql = "SELECT * FROM pacientes";
-        List<Paciente> pacientes = new ArrayList<>();
 
-        Connection conn = null;
-        try {
-            conn = ConexaoBanco.obterConexao();
-            PreparedStatement stmt = conn.prepareStatement(sql);
-            ResultSet rs = stmt.executeQuery();
+    public String getNome() {
+        return nome;
+    }
 
-            while (rs.next()) {
-                Paciente paciente = new Paciente(
-                        rs.getString("nome"),
-                        rs.getString("cpf"),
-                        rs.getInt("idade"),
-                        rs.getString("rg"),
-                        rs.getBoolean("convenio"),
-                        rs.getInt("id_convenio")
-                );
-                pacientes.add(paciente);
-            }
+    public void setNome(String nome) {
+        this.nome = nome;
+    }
 
-        } catch (SQLException e) {
-            throw new HcException("Erro ao listar pacientes: " + e.getMessage(), e);
-        } finally {
-            ConexaoBanco.fecharConexao(conn);
-        }
+    public String getCpf() {
+        return cpf;
+    }
 
-        return pacientes;
+    public void setCpf(String cpf) {
+        this.cpf = cpf;
+    }
+
+    public int getIdade() {
+        return idade;
+    }
+
+    public void setIdade(int idade) {
+        this.idade = idade;
+    }
+
+    public String getRg() {
+        return rg;
+    }
+
+    public void setRg(String rg) {
+        this.rg = rg;
+    }
+
+    public boolean isConvenio() {
+        return convenio;
+    }
+
+    public void setConvenio(boolean convenio) {
+        this.convenio = convenio;
+    }
+
+    public int getIdConvenio() {
+        return idConvenio;
+    }
+
+    public void setIdConvenio(int idConvenio) {
+        this.idConvenio = idConvenio;
     }
 
 
-    public void atualizarPaciente(Paciente paciente) {
-        String sql = "UPDATE pacientes SET nome = ?, idade = ?, rg = ?, convenio = ?, id_convenio = ? WHERE cpf = ?";
-
-        Connection conn = null;
-        try {
-            conn = ConexaoBanco.obterConexao();
-            PreparedStatement stmt = conn.prepareStatement(sql);
-
-            stmt.setString(1, paciente.getNome());
-            stmt.setInt(2, paciente.getIdade());
-            stmt.setString(3, paciente.getRg());
-            stmt.setBoolean(4, paciente.isConvenio());
-            stmt.setInt(5, paciente.getIdConvenio());
-            stmt.setString(6, paciente.getCpf());
-
-            int linhasAfetadas = stmt.executeUpdate();
-
-            if (linhasAfetadas > 0) {
-                System.out.println("Paciente atualizado com sucesso!");
-            } else {
-                System.out.println("Nenhum paciente encontrado com o CPF informado.");
-            }
-
-        } catch (SQLException e) {
-            throw new HcException("Erro ao atualizar paciente: " + e.getMessage(), e);
-        } finally {
-            ConexaoBanco.fecharConexao(conn);
-        }
+    @Override
+    public String toString() {
+        return "Paciente{" +
+                "nome='" + nome + '\'' +
+                ", cpf='" + cpf + '\'' +
+                ", idade=" + idade +
+                ", rg='" + rg + '\'' +
+                ", convenio=" + convenio +
+                ", idConvenio=" + idConvenio +
+                '}';
     }
 
 
-    public void deletarPaciente(String cpf) {
-        String sql = "DELETE FROM pacientes WHERE cpf = ?";
-
-        Connection conn = null;
-        try {
-            conn = ConexaoBanco.obterConexao();
-            PreparedStatement stmt = conn.prepareStatement(sql);
-            stmt.setString(1, cpf);
-
-            int linhasAfetadas = stmt.executeUpdate();
-
-            if (linhasAfetadas > 0) {
-                System.out.println("Paciente deletado com sucesso!");
-            } else {
-                System.out.println("Nenhum paciente encontrado com o CPF informado.");
-            }
-
-        } catch (SQLException e) {
-            throw new HcException("Erro ao deletar paciente: " + e.getMessage(), e);
-        } finally {
-            ConexaoBanco.fecharConexao(conn);
-        }
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Paciente paciente = (Paciente) o;
+        return cpf.equals(paciente.cpf);
     }
 
-
-    public boolean pacienteExiste(String cpf) {
-        return buscarPorCpf(cpf) != null;
+    public int hashCode() {
+        return cpf.hashCode();
     }
-
-
-    public int contarPacientes() {
-        String sql = "SELECT COUNT(*) AS total FROM pacientes";
-        int total = 0;
-
-        Connection conn = null;
-        try {
-            conn = ConexaoBanco.obterConexao();
-            PreparedStatement stmt = conn.prepareStatement(sql);
-            ResultSet rs = stmt.executeQuery();
-
-            if (rs.next()) {
-                total = rs.getInt("total");
-            }
-
-        } catch (SQLException e) {
-            throw new HcException("Erro ao contar pacientes: " + e.getMessage(), e);
-        } finally {
-            ConexaoBanco.fecharConexao(conn);
-        }
-
-        return total;
-    }
-
-    public List<Paciente> buscarPorFaixaEtaria(int idadeMinima, int idadeMaxima) {
-        String sql = "SELECT * FROM pacientes WHERE idade BETWEEN ? AND ? ORDER BY idade";
-        List<Paciente> pacientes = new ArrayList<>();
-
-        Connection conn = null;
-        try {
-            conn = ConexaoBanco.obterConexao();
-            PreparedStatement stmt = conn.prepareStatement(sql);
-            stmt.setInt(1, idadeMinima);
-            stmt.setInt(2, idadeMaxima);
-            ResultSet rs = stmt.executeQuery();
-
-            while (rs.next()) {
-                Paciente paciente = new Paciente(
-                        rs.getString("nome"),
-                        rs.getString("cpf"),
-                        rs.getInt("idade"),
-                        rs.getString("rg"),
-                        rs.getBoolean("convenio"),
-                        rs.getInt("id_convenio")
-                );
-                pacientes.add(paciente);
-            }
-
-        } catch (SQLException e) {
-            throw new HcException("Erro ao buscar pacientes por faixa etária: " + e.getMessage(), e);
-        } finally {
-            ConexaoBanco.fecharConexao(conn);
-        }
-
-        return pacientes;
-    }
-}
 }
