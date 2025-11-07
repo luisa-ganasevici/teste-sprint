@@ -14,7 +14,7 @@ public class AgendarConsultaDto {
     public String getPacienteNome() { return pacienteNome; }
     public void setPacienteNome(String pacienteNome) { this.pacienteNome = pacienteNome; }
 
-    public String getDataConsulta() { return dataConsulta; }  // ← String
+    public String getDataConsulta() { return dataConsulta; }
     public void setDataConsulta(String dataConsulta) { this.dataConsulta = dataConsulta; }
 
     public Long getMedicoId() { return medicoId; }

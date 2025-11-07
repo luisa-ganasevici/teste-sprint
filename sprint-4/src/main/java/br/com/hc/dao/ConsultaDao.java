@@ -1,7 +1,7 @@
 package br.com.hc.dao;
 
 
-import br.com.hc.model.agendamento.AgendarConsulta;
+import br.com.hc.model.agendamento.Agendamentos;
 import jakarta.enterprise.context.ApplicationScoped;
 import jakarta.inject.Inject;
 import javax.sql.DataSource;
@@ -15,16 +15,16 @@ public class ConsultaDao {
     @Inject
     DataSource dataSource;
 
-    public List<AgendarConsulta> listar() {
+    public List<Agendamentos> listar() {
         String sql = "SELECT * FROM consultas";
-        List<AgendarConsulta> consultas = new ArrayList<>();
+        List<Agendamentos> consultas = new ArrayList<>();
 
         try (Connection conn = dataSource.getConnection();
              PreparedStatement stmt = conn.prepareStatement(sql);
              ResultSet rs = stmt.executeQuery()) {
 
             while (rs.next()) {
-                AgendarConsulta consulta = new AgendarConsulta(
+                Agendamentos consulta = new Agendamentos(
                         rs.getInt("id"),
                         rs.getString("paciente"),
                         rs.getString("medico"),
@@ -39,7 +39,7 @@ public class ConsultaDao {
         }
         return consultas;
     }
-    public AgendarConsulta buscar(int id) {
+    public Agendamentos buscar(int id) {
         String sql = "SELECT * FROM consultas WHERE id = ?";
 
         try (Connection conn = dataSource.getConnection();
@@ -49,7 +49,7 @@ public class ConsultaDao {
             ResultSet rs = stmt.executeQuery();
 
             if (rs.next()) {
-                return new AgendarConsulta(
+                return new Agendamentos(
                         rs.getInt("id"),
                         rs.getString("paciente"),
                         rs.getString("medico"),
@@ -65,7 +65,7 @@ public class ConsultaDao {
         }
     }
 
-    public void agendar(AgendarConsulta consulta) {
+    public void agendar(Agendamentos consulta) {
         String sql = "INSERT INTO consultas (paciente, medico, data_hora, motivo) VALUES (?, ?, ?, ?)";
 
         try (Connection conn = dataSource.getConnection();

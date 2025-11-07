@@ -3,7 +3,7 @@ package br.com.hc.resource;
 import br.com.hc.dao.ConsultaDao;
 import br.com.hc.dto.consulta.AgendarConsultaDto;
 import br.com.hc.dto.consulta.DetalhesConsultaDto;
-import br.com.hc.model.agendamento.AgendarConsulta;
+import br.com.hc.model.agendamento.Agendamentos;
 import jakarta.inject.Inject;
 import jakarta.ws.rs.*;
 import jakarta.ws.rs.core.*;
@@ -32,7 +32,7 @@ public class ConsultaResource {
 
     @POST
     public Response agendar(@Valid AgendarConsultaDto dto, @Context UriInfo urlinfo) throws SQLException {
-        AgendarConsulta consulta = mapper.map(dto, AgendarConsulta.class);
+        Agendamentos consulta = mapper.map(dto, Agendamentos.class);
         consultaDao.agendar(consulta);
 
         URI url = urlinfo.getAbsolutePathBuilder()
@@ -48,7 +48,7 @@ public class ConsultaResource {
     @Path("/{id}")
     public Response buscar(@PathParam("id") int id) throws SQLException {
         try {
-            AgendarConsulta consulta = consultaDao.buscar(id);
+            Agendamentos consulta = consultaDao.buscar(id);
             return Response.ok(mapper.map(consulta, DetalhesConsultaDto.class)).build();
         } catch (Exception e) {
             return Response.status(Response.Status.NOT_FOUND)

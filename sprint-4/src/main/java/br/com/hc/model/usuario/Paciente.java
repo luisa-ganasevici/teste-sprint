@@ -4,22 +4,17 @@ public class Paciente {
     private String nome;
     private String cpf;
     private int idade;
-    private String rg;
-    private boolean convenio;
-    private int idConvenio;
 
 
     public Paciente() {
     }
 
 
-    public Paciente(String nome, String cpf, int idade, String rg, boolean convenio, int idConvenio) {
+    public Paciente(String nome, String cpf, int idade) {
         this.nome = nome;
         this.cpf = cpf;
         this.idade = idade;
-        this.rg = rg;
-        this.convenio = convenio;
-        this.idConvenio = idConvenio;
+
     }
 
 
@@ -48,30 +43,6 @@ public class Paciente {
         this.idade = idade;
     }
 
-    public String getRg() {
-        return rg;
-    }
-
-    public void setRg(String rg) {
-        this.rg = rg;
-    }
-
-    public boolean isConvenio() {
-        return convenio;
-    }
-
-    public void setConvenio(boolean convenio) {
-        this.convenio = convenio;
-    }
-
-    public int getIdConvenio() {
-        return idConvenio;
-    }
-
-    public void setIdConvenio(int idConvenio) {
-        this.idConvenio = idConvenio;
-    }
-
 
     @Override
     public String toString() {
@@ -79,9 +50,6 @@ public class Paciente {
                 "nome='" + nome + '\'' +
                 ", cpf='" + cpf + '\'' +
                 ", idade=" + idade +
-                ", rg='" + rg + '\'' +
-                ", convenio=" + convenio +
-                ", idConvenio=" + idConvenio +
                 '}';
     }
 
